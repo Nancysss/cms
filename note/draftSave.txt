@@ -1,0 +1,135 @@
+
+// 保存草稿接口
+fetch("https://oms.xlwms.com/gateway/woms/outboundOrder/create", {
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "zh-CN,zh;q=0.9",
+    "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDVDI5OCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTM3MiUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzIzODk5NzA1LCJpYXQiOjE3MjM4MTMzMDUsImp0aSI6IjlmMDcwMmU1LWUyNzQtNGE1Ni05OWQzLTZiOTU2YWEyYTMzYyJ9.8ZS1LCQ6ep0y4VlAwuhyo5Kdmc-D6PiwhvuqDy78B24",
+    "content-type": "application/json",
+    "lang": "zh",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin"
+  },
+
+  "referrer": "https://oms.xlwms.com/warehouse/packet/update/OBS3722408160T8",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": "{\"outboundOrderNo\":\"\",\"whCode\":\"13366\",\"salesPlatform\":\"\",\"referOrderNo\":\"\",\"platformOrderNo\":\"\",\"logisticsChannel\":\"Upload_Shipping_Label\",\"logisticsCarrier\":\"usps\",\"trackNo\":\"\",\"remark\":\"\",\"channelType\":3,\"logisticsSheet\":\"1 (1).pdf\",\"insureMoney\":0,\"receiver\":\"znx\",\"telephone\":\"\",\"email\":\"\",\"taxNum\":\"\",\"companyName\":\"\",\"countryRegionCode\":\"US\",\"provinceCode\":\"\",\"provinceName\":\"\",\"cityName\":\"1\",\"postCode\":\"1\",\"houseNum\":\"\",\"addressOne\":\"1\",\"addressTwo\":\"sku备注信息放在地址2\",\"subOrderType\":1,\"orderType\":1,\"productList\":[{\"id\":2717154,\"sku\":\"xt-8-8cm\",\"productName\":\"胸贴-8号色-8cm\",\"productAliasName\":\"\",\"mainCode\":\"xt-8-8cm\",\"fnsku\":\"\",\"skuId\":\"1151372xt-8-8cm\",\"currencyCode\":\"USD\",\"declarePrice\":1,\"availableAmount\":136,\"quantity\":1,\"_XID\":\"row_19\"}],\"insuranceFlag\":1,\"signatureTypeList\":[\"DIRECT\",\"INDIRECT\",\"ADULT\"],\"countryRegionName\":\"United States of America (USA)\",\"expressTypeList\":[{\"packQty\":1,\"expressDetailList\":[{\"item\":\"xt-8-8cm\",\"availableAmount\":136,\"quantity\":1}]}],\"appendixList\":[{\"createBy\":\"CT298\",\"createTime\":\"2024-08-17 00:53:11\",\"updateBy\":\"CT298\",\"updateTime\":\"2024-08-17 00:53:11\",\"deleted\":\"\",\"tenantCode\":\"1151\",\"customerCode\":\"1151372\",\"bizCode\":\"outbound\",\"bizName\":\"出库单\",\"bizAppendixType\":1,\"bizAppendixTypeName\":\"物流面单\",\"bizNo\":\"\",\"url\":\"https://xinglian-prod-1254213275.cos.accelerate.myqcloud.com/prd/oms/2408/outbound/1%20%281%29_a372c51c-feba-4d70-955e-19b21f3be8e7.pdf?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDhGd8d3PioqrroNnAPSIrZDqJXgnz3tW3%26q-sign-time%3D1723827191%3B1786899191%26q-key-time%3D1723827191%3B1786899191%26q-header-list%3Dhost%26q-url-param-list%3Dresponse-content-disposition%26q-signature%3D1b5e19a5d960d068334ea41848f5a73b0448a198&response-content-disposition=attachment%3Bfilename%3D%221%2B%25281%2529.pdf%22\",\"originName\":\"1 (1).pdf\",\"fileName\":\"1 (1).pdf\",\"fileExt\":\"pdf\",\"fileSize\":\"72748\",\"fileKey\":\"prd/oms/2408/outbound/1 (1)_a372c51c-feba-4d70-955e-19b21f3be8e7.pdf\",\"filePath\":\"prd/oms/2408/outbound/\",\"uploadTime\":\"2024-08-17 00:53:11\",\"remark\":\"\",\"applicationCode\":\"\",\"sourceName\":\"\",\"sourceNameEn\":\"\",\"mainUrl\":\"\",\"isPushed\":\"\"}]}",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+
+// 定义参数对象
+const params = {
+    outboundOrderNo: "",
+    whCode: "13366", // 这个参数是仓库的编码   固定的
+    salesPlatform: "",
+    referOrderNo: "",
+    platformOrderNo: "",
+    logisticsChannel: "Upload_Shipping_Label",
+    logisticsCarrier: "usps",
+    trackNo: "",
+    remark: "",
+    channelType: 3,
+    logisticsSheet: "1 (1).pdf",  // TODO: 这个文件不知道名字有没有要求
+    insureMoney: 0,
+    receiver: "znx",
+    telephone: "",
+    email: "",
+    taxNum: "",
+    companyName: "",
+    countryRegionCode: "US",
+    provinceCode: "",
+    provinceName: "",
+    cityName: "1",
+    postCode: "1",
+    houseNum: "",
+    addressOne: "1",
+    addressTwo: "sku备注信息放在地址2",
+    subOrderType: 1,
+    orderType: 1,
+    productList: [
+        {
+            id: 2717154,
+            sku: "xt-8-8cm",
+            productName: "胸贴-8号色-8cm",
+            productAliasName: "",
+            mainCode: "xt-8-8cm",
+            fnsku: "",
+            skuId: "1151372xt-8-8cm",
+            currencyCode: "USD",
+            declarePrice: 1,
+            availableAmount: 136,
+            quantity: 1,
+            _XID: "row_19"
+        }
+    ], // 这个是sku接口里面返回的，需要注意可用库存availableAmount和quantity 以及row_19
+    insuranceFlag: 1,
+    signatureTypeList: ["DIRECT", "INDIRECT", "ADULT"],
+    countryRegionName: "United States of America (USA)",
+    expressTypeList: [
+        {
+            packQty: 1,
+            expressDetailList: [
+                {
+                    item: "xt-8-8cm",
+                    availableAmount: 136,
+                    quantity: 1
+                }
+            ]
+        }
+    ],
+    appendixList: [
+        {
+            createBy: "CT298", // 这个是我们的账户id
+            createTime: "2024-08-17 00:53:11", // 这几个time需要是实时获取的
+            updateBy: "CT298",
+            updateTime: "2024-08-17 00:53:11",  // 这几个time需要是实时获取的
+            deleted: "",
+            tenantCode: "1151",
+            customerCode: "1151372",
+            bizCode: "outbound",
+            bizName: "出库单",
+            bizAppendixType: 1,
+            bizAppendixTypeName: "物流面单",
+            bizNo: "",
+            url: "https://xinglian-prod-1254213275.cos.accelerate.myqcloud.com/prd/oms/2408/outbound/1%20%281%29_a372c51c-feba-4d70-955e-19b21f3be8e7.pdf?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDhGd8d3PioqrroNnAPSIrZDqJXgnz3tW3%26q-sign-time%3D1723827191%3B1786899191%26q-key-time%3D1723827191%3B1786899191%26q-header-list%3Dhost%26q-url-param-list%3Dresponse-content-disposition%26q-signature%3D1b5e19a5d960d068334ea41848f5a73b0448a198&response-content-disposition=attachment%3Bfilename%3D%221%2B%25281%2529.pdf%22",
+            originName: "1 (1).pdf",
+            fileName: "1 (1).pdf",
+            fileExt: "pdf",
+            fileSize: "72748",
+            fileKey: "prd/oms/2408/outbound/1 (1)_a372c51c-feba-4d70-955e-19b21f3be8e7.pdf",
+            filePath: "prd/oms/2408/outbound/",
+            uploadTime: "2024-08-17 00:53:11",  // 这几个time需要是实时获取的
+            remark: "",
+            applicationCode: "",
+            sourceName: "",
+            sourceNameEn: "",
+            mainUrl: "",
+            isPushed: ""
+        }
+    ]
+};
+
+// 发送 POST 请求
+fetch('https://oms.xlwms.com/gateway/woms/outboundOrder/create', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), // 将参数对象转换为 JSON 字符串
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json(); // 解析 JSON 响应
+})
+.then(data => console.log(data)) // 处理响应数据
+.catch(error => console.error('Error:', error)); // 错误处理

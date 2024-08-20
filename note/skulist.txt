@@ -1,0 +1,94 @@
+fetch("https://oms.xlwms.com/gateway/woms/product/getProductList?type=1&skuOrProductName=&size=50&current=1&whCode=13366&sizeUnit=cm&weightUnit=kg", {
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "zh-CN,zh;q=0.9",
+    "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDVDI5OCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTM3MiUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzIzODk5NzA1LCJpYXQiOjE3MjM4MTMzMDUsImp0aSI6IjlmMDcwMmU1LWUyNzQtNGE1Ni05OWQzLTZiOTU2YWEyYTMzYyJ9.8ZS1LCQ6ep0y4VlAwuhyo5Kdmc-D6PiwhvuqDy78B24",
+    "lang": "zh",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin"
+  },
+  "referrer": "https://oms.xlwms.com/warehouse/packet/update/OBS3722408160T8",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+---
+response
+{
+    "code": 200,
+    "data": {
+        "records": [
+            {
+                "id": 2717154,
+                "sku": "xt-8-8cm",
+                "productName": "胸贴-8号色-8cm",
+                "productAliasName": "",
+                "mainCode": "xt-8-8cm",
+                "fnsku": "",
+                "skuId": "1151372xt-8-8cm",
+                "currencyCode": "USD",
+                "declarePrice": 1.000,
+                "availableAmount": 136
+            },
+            {
+                "id": 2717152,
+                "sku": "xt-8-10cm",
+                "productName": "胸贴-8号色-10cm",
+                "productAliasName": "",
+                "mainCode": "xt-8-10cm",
+                "fnsku": "",
+                "skuId": "1151372xt-8-10cm",
+                "currencyCode": "USD",
+                "declarePrice": 1.000,
+                "availableAmount": 51
+            },
+            {
+                "id": 2717149,
+                "sku": "xt-2-8cm",
+                "productName": "胸贴-2号色-8cm",
+                "productAliasName": "",
+                "mainCode": "xt-2-8cm",
+                "fnsku": "",
+                "skuId": "1151372xt-2-8cm",
+                "currencyCode": "USD",
+                "declarePrice": 1.000,
+                "availableAmount": 67
+            },
+            {
+                "id": 2717147,
+                "sku": "xt-2-10cm",
+                "productName": "胸贴-2号色-10cm",
+                "productAliasName": "",
+                "mainCode": "xt-2-10cm",
+                "fnsku": "",
+                "skuId": "1151372xt-2-10cm",
+                "currencyCode": "USD",
+                "declarePrice": 1.000,
+                "availableAmount": 801
+            }
+        ],
+        "total": 4,
+        "size": 50,
+        "current": 1,
+        "pages": 1
+    },
+    "msg": "操作成功"
+}
+
+--request params
+
+type: 1
+skuOrProductName: 
+size: 50
+current: 1
+whCode: 13366
+sizeUnit: cm
+weightUnit: kg

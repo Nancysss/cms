@@ -1,0 +1,108 @@
+// 定义参数对象
+const params = {
+    outboundOrderNo: "",
+    whCode: "13366", // 这个参数是仓库的编码   固定的
+    salesPlatform: "",
+    referOrderNo: "",
+    platformOrderNo: "",
+    logisticsChannel: "Upload_Shipping_Label",
+    logisticsCarrier: "usps",
+    trackNo: "",
+    remark: "",
+    channelType: 3,
+    logisticsSheet: "1 (1).pdf",  // TODO: 这个文件不知道名字有没有要求
+    insureMoney: 0,
+    receiver: "znx",
+    telephone: "",
+    email: "",
+    taxNum: "",
+    companyName: "",
+    countryRegionCode: "US",
+    provinceCode: "",
+    provinceName: "",
+    cityName: "1",
+    postCode: "1",
+    houseNum: "",
+    addressOne: "1",
+    addressTwo: "sku备注信息放在地址2",
+    subOrderType: 1,
+    orderType: 1,
+    productList: [
+        {
+            id: 2717154,
+            sku: "xt-8-8cm",
+            productName: "胸贴-8号色-8cm",
+            productAliasName: "",
+            mainCode: "xt-8-8cm",
+            fnsku: "",
+            skuId: "1151372xt-8-8cm",
+            currencyCode: "USD",
+            declarePrice: 1,
+            availableAmount: 136,
+            quantity: 1,
+            // _XID: "row_19"
+        }
+    ], // 这个是sku接口里面返回的，需要注意可用库存availableAmount和quantity 以及row_19
+    insuranceFlag: 1,
+    signatureTypeList: ["DIRECT", "INDIRECT", "ADULT"],
+    countryRegionName: "United States of America (USA)",
+    expressTypeList: [
+        {
+            packQty: 1,
+            expressDetailList: [
+                {
+                    item: "xt-8-8cm",
+                    availableAmount: 136,
+                    quantity: 1
+                }
+            ]
+        }
+    ],
+    appendixList: [
+        {
+            "createBy": "CT298",
+            "createTime": "2024-08-17 01:59:45",
+            "updateBy": "CT298",
+            "updateTime": "2024-08-17 01:59:45",
+            "deleted": "",
+            "tenantCode": "1151",
+            "customerCode": "1151372",
+            "bizCode": "outbound",
+            "bizName": "出库单",
+            "bizAppendixType": 1,
+            "bizAppendixTypeName": "物流面单",
+            "bizNo": "",
+            "url": "https://xinglian-prod-1254213275.cos.accelerate.myqcloud.com/prd/oms/2408/outbound/downloaded-file2_14582d90-7df8-4f06-9459-46571c66ebe8.pdf?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDhGd8d3PioqrroNnAPSIrZDqJXgnz3tW3%26q-sign-time%3D1723831185%3B1786903185%26q-key-time%3D1723831185%3B1786903185%26q-header-list%3Dhost%26q-url-param-list%3Dresponse-content-disposition%26q-signature%3Dd2a56f3a5b8db2264acc54704e1f3cd207f50af3&response-content-disposition=attachment%3Bfilename%3D%22downloaded-file2.pdf%22",
+            "originName": "downloaded-file2.pdf",
+            "fileName": "downloaded-file2.pdf",
+            "fileExt": "pdf",
+            "fileSize": "49912",
+            "fileKey": "prd/oms/2408/outbound/downloaded-file2_14582d90-7df8-4f06-9459-46571c66ebe8.pdf",
+            "filePath": "prd/oms/2408/outbound/",
+            "uploadTime": "2024-08-17 01:59:45",
+            "remark": "",
+            "applicationCode": "",
+            "sourceName": "",
+            "sourceNameEn": "",
+            "mainUrl": "",
+            "isPushed": ""
+        }
+    ]
+};
+
+// 发送 POST 请求
+fetch('https://oms.xlwms.com/gateway/woms/outboundOrder/create', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), // 将参数对象转换为 JSON 字符串
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json(); // 解析 JSON 响应
+})
+.then(data => {console.log('>>>>chenggong', data)}) // 处理响应数据
+.catch(error => console.error('Error:', error)); // 错误处理
