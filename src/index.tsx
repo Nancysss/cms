@@ -7,9 +7,9 @@ import {
   ISingleSelectField,
   IAddFieldConfig,
 } from "@lark-base-open/js-sdk";
-import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css'; // 或其他样式
-import Clipboard from 'clipboard';
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css"; // 或其他样式
+import Clipboard from "clipboard";
 import { getCodeString } from "./const";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -17,7 +17,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <LoadApp />
   </React.StrictMode>
 );
-
 
 const CodeBlock = ({ originArr }: { originArr: any[] }) => {
   const ref = useRef<HTMLPreElement>(null);
@@ -36,7 +35,7 @@ const CodeBlock = ({ originArr }: { originArr: any[] }) => {
     });
 
     // 监听复制成功事件
-    clipboard.on('success', () => {
+    clipboard.on("success", () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 5000);
     });
@@ -45,20 +44,24 @@ const CodeBlock = ({ originArr }: { originArr: any[] }) => {
     return () => {
       clipboard.destroy();
     };
-
   }, []);
 
   return (
-    <div style={{ position: 'relative' }}>
-      <button id="copy_btn" style={{ position: 'absolute', top: 12, right: 12, lineHeight: '14px' }}>
-        {copied ? '复制成功' : '复制'}
+    <div style={{ position: "relative" }}>
+      <button
+        id="copy_btn"
+        style={{ position: "absolute", top: 12, right: 12, lineHeight: "14px" }}
+      >
+        {copied ? "复制成功" : "复制"}
       </button>
-      <div style={{
-        height: "200px",
-        overflowY: "scroll",
-        border: "1px dotted rgb(118, 118, 118)",
-        padding: "2px 6px 2px 6px",
-      }}>
+      <div
+        style={{
+          height: "200px",
+          overflowY: "scroll",
+          border: "1px dotted rgb(118, 118, 118)",
+          padding: "2px 6px 2px 6px",
+        }}
+      >
         <pre ref={ref}>
           <code className="javascript">{codeString}</code>
         </pre>
@@ -121,12 +124,18 @@ export default function LoadApp() {
         return meta.name === "面单";
       });
       const pdfFieldId = pdfField?.id;
+      if (!pdfFieldId && type === "single") {
+        throw new Error("面单列不存在!");
+      }
 
       // (2)获取‘批量面单’列对应的id
       const [multiPdfField] = fieldList.filter((meta) => {
         return meta.name === "批量面单";
       });
       const multiPdfFieldId = multiPdfField?.id;
+      if (!multiPdfFieldId && type === "multi") {
+        throw new Error("批量面单列不存在！");
+      }
 
       // (3)获取‘数量’列对应的id
       const [{ id: countFieldId }] = fieldList.filter((meta) => {
@@ -150,10 +159,6 @@ export default function LoadApp() {
 
       console.log(">>>>records", records, pdfFieldId, skuFieldId);
 
-      const attachmentField = await table.getField<IAttachmentField>(
-        pdfFieldId
-      );
-
       let commonRecords = records;
       // 过滤sku异常的订单
       if (errorFieldId) {
@@ -176,6 +181,9 @@ export default function LoadApp() {
         try {
           let eachLineFirstPdfUrl = "";
           if (type === "single") {
+            const attachmentField = await table.getField<IAttachmentField>(
+              pdfFieldId
+            );
             const eachLinePdfUrls = await attachmentField.getAttachmentUrls(
               record.recordId
             );
@@ -463,7 +471,10 @@ export default function LoadApp() {
           给表格插入'已发货'列
         </button>
       </div>
-      <button onClick={() => run("multi")} style={{ marginTop: "12px", marginRight: "12px" }}>
+      <button
+        onClick={() => run("multi")}
+        style={{ marginTop: "12px", marginRight: "12px" }}
+      >
         开始生成(基于批量面单)
       </button>
 
@@ -521,10 +532,7 @@ export default function LoadApp() {
           条订单
         </p>
       ) : null}
-      {originArr.length ?
-        <CodeBlock originArr={originArr} />
-        : null}
-
+      {originArr.length ? <CodeBlock originArr={originArr} /> : null}
     </div>
   );
 }
