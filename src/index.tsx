@@ -385,7 +385,6 @@ export default function LoadApp() {
       return fieldItem;
     }
   };
-  const arrInfoStr = JSON.stringify(originArr);
 
   return (
     <div style={{ padding: "20px" }}>
