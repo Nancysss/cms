@@ -154,15 +154,15 @@ fetch(
     const skuList = data.data.records;
     // TODO: 这个地方是需要手动维护的
     skuListMap = {
-      // "xt-2-10cm": skuList.find(
-      //   (i) => i.mainCode === "xt-2-10cm"
-      // ),
-      // "xt-2-8cm": skuList.find(
-      //   (i) => i.mainCode === "xt-2-8cm"
-      // ),
-      // "xt-8-10cm": skuList.find(
-      //   (i) => i.mainCode === "xt-8-10cm"
-      // ),
+      "xt-2-10cm": skuList.find(
+        (i) => i.mainCode === "xt-2-10cm"
+      ),
+      "xt-2-8cm": skuList.find(
+        (i) => i.mainCode === "xt-2-8cm"
+      ),
+      "xt-8-10cm": skuList.find(
+        (i) => i.mainCode === "xt-8-10cm"
+      ),
       "xt-8-8cm": skuList.find(
         (i) => i.mainCode === "xt-8-8cm"
       ),

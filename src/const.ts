@@ -163,12 +163,12 @@ fetch(
       // "xt-8-10cm": skuList.find(
       //   (i) => i.mainCode === "xt-8-10cm"
       // ),
-      "xt-8-8cm": skuList.find(
-        (i) => i.mainCode === "xt-8-8cm"
-      ),
-      // "xlz": skuList.find(
-      //   (i) => i.mainCode === "xlz"
+      // "xt-8-8cm": skuList.find(
+      //   (i) => i.mainCode === "xt-8-8cm"
       // ),
+      "xlz": skuList.find(
+        (i) => i.mainCode === "xlz"
+      ),
     };
     console.log(">>>>skuList", skuList, skuListMap);
     const errorSkuList = arrInfo.filter((i) => {
