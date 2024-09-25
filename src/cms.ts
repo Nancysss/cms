@@ -4,11 +4,11 @@
 const arrInfo = []
 
 // TODO: 确认一下物流仓信息
-const whCode = "13366"
+const whCode = "66666"
 
 // TODO: 设置鉴权信息
 const Authorization =
-  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDdDI5OCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTM3MiUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzI0MTIzNDk0LCJpYXQiOjE3MjQwMzcwOTQsImp0aSI6IjJiMzQ1ZjM0LTZkMmItNGJmNi1iNjNjLWVhNzMxMWViMTg2NSJ9.SlI7b4RrcBuUM4-sV0Bnxiya5nB40dWAu29OwYbGE0k";
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDVDMyMCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTQwMyUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzI3MzYxMTI0LCJpYXQiOjE3MjcyNzQ3MjQsImp0aSI6ImE2N2FmMmY0LWJhY2EtNDIwMy04ZWRhLWUxMzNjZGUwNzhiOSJ9.jgB_aznQtJto4ttLJGlM7NN8vpYpeCprIi-Rhq3nYp4";
 
 let skuListMap = {};
 async function asyncLimit(limitNum, arr, fn) {
@@ -96,7 +96,7 @@ const fn = async (i) => {
                 packQty: 1,
                 expressDetailList: [
                   {
-                    item: skuListMap[i.sku].mainCode,
+                    item: skuListMap[i.sku].sku,
                     availableAmount: skuListMap[i.sku].availableAmount,
                     quantity: i.count,
                   },
@@ -160,18 +160,20 @@ fetch(
     const skuList = data.data.records;
     // TODO: 这个地方是需要手动维护的
     skuListMap = {
-      "xt-2-10cm": skuList.find(
-        (i) => i.mainCode === "xt-2-10cm"
-      ),
-      "xt-2-8cm": skuList.find(
-        (i) => i.mainCode === "xt-2-8cm"
-      ),
-      "xt-8-10cm": skuList.find(
-        (i) => i.mainCode === "xt-8-10cm"
-      ),
-      "xt-8-8cm": skuList.find(
-        (i) => i.mainCode === "xt-8-8cm"
-      ),
+      // "xt-2-10cm": skuList.find(
+      //   (i) => i.mainCode === "xt-2-10cm"
+      // ),
+      // "xt-2-8cm": skuList.find(
+      //   (i) => i.mainCode === "xt-2-8cm"
+      // ),
+      // "xt-8-10cm": skuList.find(
+      //   (i) => i.mainCode === "xt-8-10cm"
+      // ),
+      // "xt-8-8cm": skuList.find(
+      //   (i) => i.mainCode === "xt-8-8cm"
+      // ),
+      "xlz": skuList.find(
+        (i) => i.mainCode === "xlz"
     };
     console.log(">>>>skuList", skuList, skuListMap);
     const errorSkuList = arrInfo.filter((i) => {

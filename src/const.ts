@@ -1,16 +1,12 @@
 export const getCodeString = (originArr: any[]) => `
 // 开始执行脚本之前，记得检查 TODO 事项
-
 // TODO: 先去飞书表格获取arrInfo
 const arrInfo = ${JSON.stringify(originArr)};
-
 // TODO: 确认一下物流仓信息
-const whCode = "13366"
-
+const whCode = "66666"
 // TODO: 设置鉴权信息
 const Authorization =
-  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDdDI5OCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTM3MiUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzI0MTIzNDk0LCJpYXQiOjE3MjQwMzcwOTQsImp0aSI6IjJiMzQ1ZjM0LTZkMmItNGJmNi1iNjNjLWVhNzMxMWViMTg2NSJ9.SlI7b4RrcBuUM4-sV0Bnxiya5nB40dWAu29OwYbGE0k";
-
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDVDMyMCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTQwMyUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzI3MzU1OTAwLCJpYXQiOjE3MjcyNjk1MDAsImp0aSI6IjYxMDc5ZDljLTk2OGItNGMzYS1hYTVjLWU1ZGVhODY3NTQzMCJ9.edtFgI9aNRueJTc8hCfwCKYA06R3f--r24YFsOjyfoQ";
 let skuListMap = {};
 async function asyncLimit(limitNum, arr, fn) {
   let resArr = []; // 所有promise实例
@@ -30,7 +26,6 @@ async function asyncLimit(limitNum, arr, fn) {
   }
   return Promise.allSettled(resArr);
 }
-
 const fn = async (i) => {
   await fetch(i.pdfUrl, {
     method: "GET",
@@ -97,7 +92,7 @@ const fn = async (i) => {
                 packQty: 1,
                 expressDetailList: [
                   {
-                    item: skuListMap[i.sku].mainCode,
+                    item: skuListMap[i.sku].sku,
                     availableAmount: skuListMap[i.sku].availableAmount,
                     quantity: i.count,
                   },
@@ -139,11 +134,9 @@ const fn = async (i) => {
       console.log(
         "部分数据或全部数据导入失败，可查询草稿查看具体哪些生成成功，剩余的就是失败的: 建议解决方法 1. 数据过期，就重新去飞书表格生产数据 2. 数据太多，就减少一下数量，一次生成100条以内是比较稳妥的。"
       );
-
       alert("部分数据或全部数据导入失败，详见log");
     });
 };
-
 // 获取sku
 fetch(
   \`https://oms.xlwms.com/gateway/woms/product/getProductList?type=1&skuOrProductName=&size=50&current=1&whCode=\${whCode}&sizeUnit=cm&weightUnit=kg\`,
@@ -161,17 +154,20 @@ fetch(
     const skuList = data.data.records;
     // TODO: 这个地方是需要手动维护的
     skuListMap = {
-      "xt-2-10cm": skuList.find(
-        (i) => i.mainCode === "xt-2-10cm"
-      ),
-      "xt-2-8cm": skuList.find(
-        (i) => i.mainCode === "xt-2-8cm"
-      ),
-      "xt-8-10cm": skuList.find(
-        (i) => i.mainCode === "xt-8-10cm"
-      ),
-      "xt-8-8cm": skuList.find(
-        (i) => i.mainCode === "xt-8-8cm"
+      // "xt-2-10cm": skuList.find(
+      //   (i) => i.mainCode === "xt-2-10cm"
+      // ),
+      // "xt-2-8cm": skuList.find(
+      //   (i) => i.mainCode === "xt-2-8cm"
+      // ),
+      // "xt-8-10cm": skuList.find(
+      //   (i) => i.mainCode === "xt-8-10cm"
+      // ),
+      // "xt-8-8cm": skuList.find(
+      //   (i) => i.mainCode === "xt-8-8cm"
+      // ),
+      "xlz": skuList.find(
+        (i) => i.mainCode === "xlz"
       ),
     };
     console.log(">>>>skuList", skuList, skuListMap);
