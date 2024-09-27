@@ -152,7 +152,7 @@ fetch(
   })
   .then((data) => {
     const skuList = data.data.records;
-    // TODO: 这个地方是需要手动维护的
+    // TODO: 这个地方是需要手动维护的，key必须是小写
     skuListMap = {
       "xt-2-10cm": skuList.find(
         (i) => i.mainCode === "xt-2-10cm"
@@ -166,9 +166,6 @@ fetch(
       "xt-8-8cm": skuList.find(
         (i) => i.mainCode === "xt-8-8cm"
       ),
-      // "xlz": skuList.find(
-      //   (i) => i.mainCode === "xlz"
-      // ),
     };
     console.log(">>>>skuList", skuList, skuListMap);
     const errorSkuList = arrInfo.filter((i) => {

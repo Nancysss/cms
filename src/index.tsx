@@ -7,10 +7,9 @@ import {
   ISingleSelectField,
   IAddFieldConfig,
 } from "@lark-base-open/js-sdk";
-import hljs from "highlight.js";
 import "highlight.js/styles/github.css"; // 或其他样式
-import Clipboard from "clipboard";
-import { getCodeString } from "./const";
+import { CodeBlock } from "./components/CodeBlock";
+import { storehouseOptions } from "./const/map";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -18,60 +17,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   </React.StrictMode>
 );
 
-const CodeBlock = ({ originArr }: { originArr: any[] }) => {
-  const ref = useRef<HTMLPreElement>(null);
-  const [copied, setCopied] = useState(false);
-
-  const codeString = getCodeString(originArr);
-
-  useEffect(() => {
-    if (ref.current) {
-      hljs.highlightBlock(ref.current);
-    }
-
-    // 创建 clipboard 实例并保存到变量中
-    const clipboard = new Clipboard(`#copy_btn`, {
-      text: () => codeString,
-    });
-
-    // 监听复制成功事件
-    clipboard.on("success", () => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 5000);
-    });
-
-    // 销毁 clipboard 实例
-    return () => {
-      clipboard.destroy();
-    };
-  }, []);
-
-  return (
-    <div style={{ position: "relative" }}>
-      <button
-        id="copy_btn"
-        style={{ position: "absolute", top: 12, right: 12, lineHeight: "14px" }}
-      >
-        {copied ? "复制成功" : "复制"}
-      </button>
-      <div
-        style={{
-          height: "200px",
-          overflowY: "scroll",
-          border: "1px dotted rgb(118, 118, 118)",
-          padding: "2px 6px 2px 6px",
-        }}
-      >
-        <pre ref={ref}>
-          <code className="javascript">{codeString}</code>
-        </pre>
-      </div>
-    </div>
-  );
-};
-
 export default function LoadApp() {
-  const [needUpdateTableName, setNeedUpdateTableName] = useState("Sheet1");
+  // const [needUpdateTableName, setNeedUpdateTableName] = useState("8-22");
+  const [currentSelectTableName, setCurrentSelectTableName] = useState("");
+  const [selectedOption, setSelectedOption] = useState(
+    storehouseOptions[0].value
+  );
   const [originArr, setOriginArr] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorStatus, setErrorStatus] = useState(false);
@@ -92,14 +43,17 @@ export default function LoadApp() {
     setSortedFileArr([]);
     try {
       // 1. 找出表
-      const tables = await bitable.base.getTableMetaList();
-      console.log(">>>>tables", tables);
+      // const tables = await bitable.base.getTableMetaList();
+      // console.log(">>>>tables", tables);
 
-      const [needUpdateTable] = tables.filter(({ name }) => {
-        return name === needUpdateTableName;
-      });
+      // const [needUpdateTable] = tables.filter(({ name }) => {
+      //   return name === needUpdateTableName;
+      // });
 
-      const table = await bitable.base.getTableById(needUpdateTable.id);
+      // const table = await bitable.base.getTableById(needUpdateTable.id);
+      const table = await bitable.base.getActiveTable();
+      const currentSelectTableName = await table.getName();
+      setCurrentSelectTableName(currentSelectTableName);
       // 使用数据表table实例的api：getFieldMetaList,获取数据表所有字段信息
       const metaList = await table.getViewMetaList();
 
@@ -227,7 +181,7 @@ export default function LoadApp() {
             pdfUrl,
             addressTwo: `核验信息：订单号：${orderId}, sku: ${sku},  数量：${count} `,
             orderId,
-            tableName: needUpdateTable.name,
+            tableName: currentSelectTableName,
           };
         } catch (error) {
           setErrorStatus(true);
@@ -310,8 +264,8 @@ export default function LoadApp() {
           sortedFileList.sort((a, b) => {
             // 提取括号内的数字
             const extractNumber = ({ fileName }) => {
-              const match = fileName.match(/\((\d+)\)/);
-              return match ? parseInt(match[1], 10) : parseInt(fileName);
+              const matches = fileName.match(/\d+/g);
+              return matches ? matches[matches.length - 1] : null;
             };
 
             // 对比提取的数字
@@ -354,6 +308,12 @@ export default function LoadApp() {
       console.log(">>>生成数据失败", error);
       alert("生成数据失败:" + error);
     }
+  };
+
+  const handleOptionChange = (event: any) => {
+    const value = event.target.value;
+    setSelectedOption(value);
+    console.log(">>>value", value);
   };
 
   const handleCreateMultiPdfField = async () => {
@@ -401,11 +361,13 @@ export default function LoadApp() {
     fieldConfig: IAddFieldConfig
   ) => {
     // 找出表
-    const tables = await bitable.base.getTableMetaList();
-    const [needUpdateTable] = tables.filter(({ name }) => {
-      return name === needUpdateTableName;
-    });
-    const table = await bitable.base.getTableById(needUpdateTable.id);
+    // const tables = await bitable.base.getTableMetaList();
+    // const [needUpdateTable] = tables.filter(({ name }) => {
+    //   return name === needUpdateTableName;
+    // });
+    // const table = await bitable.base.getTableById(needUpdateTable.id);
+    const table = await bitable.base.getActiveTable();
+    const currentSelectTableName = await table.getName();
     const fieldList = await table.getFieldMetaList();
 
     const [field] = fieldList.filter((meta) => {
@@ -413,7 +375,7 @@ export default function LoadApp() {
     });
     if (field?.id) {
       alert(
-        `在${needUpdateTableName}表中${fieldName}列之前已经创建了，无需重新创建~`
+        `在${currentSelectTableName}表中${fieldName}列之前已经创建了，无需重新创建~`
       );
       return;
     } else {
@@ -427,7 +389,8 @@ export default function LoadApp() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h4>1. 输入表格名称，如：Sheet1</h4>
+      <h4>1. 默认使用当前选中表 </h4>
+      {/* <h4>1. 输入表格名称，如：Sheet1</h4>
       <input
         type="text"
         onChange={(e) => {
@@ -435,7 +398,7 @@ export default function LoadApp() {
         }}
         value={needUpdateTableName}
         style={{ width: "100%" }}
-      />
+      /> */}
 
       <div
         style={{
@@ -448,7 +411,10 @@ export default function LoadApp() {
       >
         <button
           onClick={handleCreateMultiPdfField}
-          style={{ marginRight: "12px", transform: "scale(0.9)" }}
+          style={{
+            marginRight: "12px",
+            transform: "scale(0.9) translateX(-4px)",
+          }}
         >
           给表格插入'批量面单'列(推荐)
         </button>
@@ -471,9 +437,26 @@ export default function LoadApp() {
           给表格插入'已发货'列
         </button>
       </div>
+
+      <h4>2. 选择发货仓库</h4>
+      <div>
+        {storehouseOptions.map((option) => (
+          <label key={option.value}>
+            <input
+              type="radio"
+              value={option.value}
+              checked={selectedOption === option.value}
+              onChange={handleOptionChange}
+              name={"storehouse"}
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
+
       <button
         onClick={() => run("multi")}
-        style={{ marginTop: "12px", marginRight: "12px" }}
+        style={{ marginTop: "16px", marginRight: "12px" }}
       >
         开始生成(基于批量面单)
       </button>
@@ -483,12 +466,12 @@ export default function LoadApp() {
       </button>
 
       {loading ? (
-        <p style={{ color: "gray" }}>生成中...</p>
+        <p style={{ color: "gray" }}>基于「{currentSelectTableName}表」生成中...</p>
       ) : (
-        <>{flag ? <p style={{ color: "black" }}>执行完毕！</p> : null}</>
+        <>{flag ? <p style={{ color: "black" }}>基于「{currentSelectTableName}表」执行完毕！</p> : null}</>
       )}
 
-      <h4>2. 检查文件顺序</h4>
+      <h4>3. 检查文件顺序</h4>
       <div
         style={{
           height: "100px",
@@ -516,7 +499,7 @@ export default function LoadApp() {
         })}
       </div>
 
-      <h4>3. 复制脚本</h4>
+      <h4>4. 复制脚本</h4>
       <p>注意：数据在十分钟内有效， 过期之后需要重新点击‘开始生成’按钮</p>
       {errorStatus ? (
         <p style={{ color: "red" }}>
@@ -532,7 +515,9 @@ export default function LoadApp() {
           条订单
         </p>
       ) : null}
-      {originArr.length ? <CodeBlock originArr={originArr} /> : null}
+      {originArr.length ? (
+        <CodeBlock originArr={originArr} storehouseName={selectedOption} />
+      ) : null}
     </div>
   );
 }
