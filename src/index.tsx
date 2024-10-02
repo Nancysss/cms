@@ -10,6 +10,7 @@ import {
 import "highlight.js/styles/github.css"; // 或其他样式
 import { CodeBlock } from "./components/CodeBlock";
 import { storehouseOptions } from "./const/map";
+import TextReplacer from "./components/TextReplacer";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -388,6 +389,8 @@ export default function LoadApp() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <TextReplacer />
+
       <h4>1. 默认使用当前选中表 </h4>
       {/* <h4>1. 输入表格名称，如：Sheet1</h4>
       <input
@@ -465,9 +468,17 @@ export default function LoadApp() {
       </button>
 
       {loading ? (
-        <p style={{ color: "gray" }}>基于「{currentSelectTableName}表」生成中...</p>
+        <p style={{ color: "gray" }}>
+          基于「{currentSelectTableName}表」生成中...
+        </p>
       ) : (
-        <>{flag ? <p style={{ color: "black" }}>基于「{currentSelectTableName}表」执行完毕！</p> : null}</>
+        <>
+          {flag ? (
+            <p style={{ color: "black" }}>
+              基于「{currentSelectTableName}表」执行完毕！
+            </p>
+          ) : null}
+        </>
       )}
 
       <h4>3. 检查文件顺序</h4>
