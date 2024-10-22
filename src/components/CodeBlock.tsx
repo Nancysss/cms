@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCodeString as getCodeStringXLZ } from "../const/const-xlz";
 import { getCodeString as getCodeStringXT } from "../const/const-xt";
+import { getCodeString as getCodeStringWomenYsj } from "../const/const-mm-ysj";
 import Clipboard from "clipboard";
 import hljs from "highlight.js";
 
@@ -23,6 +24,8 @@ export const CodeBlock = ({
       // 胸贴
       case "xt":
         return getCodeStringXT(originArr);
+      case "mm-ysj":
+        return getCodeStringWomenYsj(originArr);  
       default:
         break;
     }

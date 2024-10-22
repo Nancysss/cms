@@ -3,7 +3,7 @@ export const getCodeString = (originArr: any[]) => `
 // TODO: 先去飞书表格获取arrInfo
 const arrInfo = ${JSON.stringify(originArr)};
 // TODO: 确认一下物流仓信息
-const whCode = "66666"
+const whCode = "13366"
 // TODO: 设置鉴权信息
 const Authorization =
   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIlN0IlMjJidXNpbmVzc1R5cGUlMjIlM0ElMjJvbXMlMjIlMkMlMjJsb2dpbkFjY291bnQlMjIlM0ElMjJDdDI5OCUyMiUyQyUyMnVzZXJOYW1lQ24lMjIlM0ElMjIlMjIlMkMlMjJ1c2VyTmFtZUVuJTIyJTNBJTIyJTIyJTJDJTIyY3VzdG9tZXJDb2RlJTIyJTNBJTIyMTE1MTM3MiUyMiUyQyUyMnRlbmFudENvZGUlMjIlM0FudWxsJTJDJTIydGVybWluYWxUeXBlJTIyJTNBbnVsbCU3RCIsImlzcyI6InhpbmdsaWFuLnNlY3VyaXR5IiwiYnVzaW5lc3NUeXBlIjoib21zIiwiZXhwIjoxNzI5Njc1ODUzLCJpYXQiOjE3Mjk1ODk0NTMsImp0aSI6IjZmMjMxOGZlLTFhMmMtNDdmZi04NjA0LTYwM2Q2NzU0N2Q1ZSJ9.saUWd5vwl4lXUaH2n9XzLk5DN0Gn031EW3Kzb4ylOBA";
@@ -154,8 +154,8 @@ fetch(
     const skuList = data.data.records;
     // TODO: 这个地方是需要手动维护的, key必须是小写
     skuListMap = {
-      "xlz": skuList.find(
-        (i) => i.mainCode === "xlz"
+      "mm-ysj": skuList.find(
+        (i) => i.mainCode === "mm-ysj"
       ),
     };
     console.log(">>>>skuList", skuList, skuListMap);
